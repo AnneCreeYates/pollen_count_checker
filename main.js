@@ -1,34 +1,12 @@
-require("dotenv").config(); //dotenv configuratoin checked - works
+import { getData } from "./data.js";
 
-const apiKey = process.env.API_KEY;
-
+const location = document.getElementById("userInput_loc");
 // const pollenPara = document.getElementById("pollenInfo");
+console.log(location.value);
 
-const http = require("https");
-
-const options = {
-  method: "GET",
-  hostname: "api.ambeedata.com",
-  port: null,
-  //check for the place for format string. Take from user input.
-  path: "/forecast/pollen/by-place?place=Bengaluru",
-  headers: {
-    "x-api-key": apiKey,
-    "Content-type": "application/json",
-  },
-};
-
-const req = http.request(options, function (res) {
-  const chunks = [];
-
-  res.on("data", function (chunk) {
-    chunks.push(chunk);
-  });
-
-  res.on("end", function () {
-    const body = Buffer.concat(chunks);
-    console.log(body.toString());
-  });
+location.addEventListener("keydown", async (event) => {
+  if (event.key === "Enter") {
+    const data = await getData(location.value);
+    console.log(data);
+  }
 });
-
-req.end();

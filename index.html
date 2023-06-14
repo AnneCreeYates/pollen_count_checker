@@ -16,12 +16,17 @@
 <body>
     <h1>Here will go a title</h1>
     <p>Here goes description of the app and how it works</p>
-    <p>Here will go input field for location</p>
+
+    <section class="inputSection">
+        <label for="location">Insert location:</label>
+        <input type="search" name="location" id="userInput_loc" required autofocus></input>
+    </section>
+
     <section class="pollenInfoSection">
         <p id="pollenInfo">Here goes the received data ... eventually.</p>
     </section>
 
 </body>
-<script src="main.js"></script>
+<script type="module" src="main.js"></script>
 
 </html>
