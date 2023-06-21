@@ -1,58 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Get up-to-date information on pollen counts and forecasts for your area. Learn how to manage your allergies and reduce your exposure to pollen.">
-    <meta name="author" content="Anna Wrzosek">
-    <link rel="stylesheet" href="styles.css" type="text/css" media="screen">
+<!--including the partials in the file - templating head-->
+<%- include("../partials/head.ejs")%>
 
-    <title>Pollen checker</title>
-</head>
+    <body>
+        <!--including the partials in the file - templating nav-->
+        <%- include("../partials/nav.ejs")%>
+            <h1>Here will go a title</h1>
+            <p>Here goes description of the app and how it works</p>
 
-<body>
-    <h1>Here will go a title</h1>
-    <p>Here goes description of the app and how it works</p>
+            <section class="inputSection">
+                <!--send the data as a request using action destination and method-->
+                <form action="/" method="POST">
+                    <label for="place">Insert place:</label>
+                    <input type="search" name="place" id="userInput_loc" required autofocus></input>
+                </form>
+            </section>
 
-    <section class="inputSection">
-        <!--send the data as a request to the apiData.js using action destination and method-->
-        <!-- <form action="../location.js" method="POST"> -->
-        <label for="location">Insert location:</label>
-        <input type="search" name="location" id="userInput_loc" required autofocus></input>
-        <!-- </form> -->
-    </section>
+            <section class="apiDataReceived">
+                <h2>API Data</h2>
+                <ul>
+                    <% for (let key in data) { %>
+                        <% if (key==='data' ) { %>
+                            <li>
+                                <%= key %>:
+                            </li>
+                            <ul>
+                                <% data[key].forEach(item=> { %>
+                                    <li>
+                                        <%= JSON.stringify(item) %>
+                                    </li>
+                                    <% }) %>
+                            </ul>
+                            <% } else { %>
+                                <li>
+                                    <%= key %>: <%= data[key] %>
+                                </li>
+                                <% } %>
+                                    <% } %>
+                </ul>
+            </section>
 
-    <section class="pollenInfoSection">
-        <p id="pollenInfo">Here goes the received data ... eventually.</p>
-    </section>
 
-</body>
-
-<!--The script below gets input from the user in the browser environment to use in the api request in apiData.js-->
-<!-- <script>
-    //this is my server endpoint
-    const endpoint = "/main";
-    const apiData = document.getElementById("userInput_loc");
-    apiData.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
-            console.log("Location: ", event.target.value);
-            console.log("Key pressed: ", event.key);
-
-            //send data to the server
-            fetch(endpoint, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ location: event.target.value })
-            })
-            //removes the input value after the user presses Enter button
-            event.target.value = "";
-        }
-    })
-</script> -->
+            <!--including the partials in the file - templating footer-->
+            <%- include("../partials/footer.ejs")%>
+    </body>
 
 </html>
