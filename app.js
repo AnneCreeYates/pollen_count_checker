@@ -24,7 +24,10 @@ app.post("/", (req,res) => {
   const place = req.body.place;
   console.log(place);
   apiData.getData(place)
-    .then(data => {
+    .then((response) => {
+      //data variable goes deeper into the response array of objects, if other elements on the same level are necessary check console.log(response)
+      const data = response.data;
+      console.log(data[0])
       res.render("index", { title: "Home", data: data });
     })
     .catch(error => {

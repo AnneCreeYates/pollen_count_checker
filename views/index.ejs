@@ -13,36 +13,27 @@
             <section class="inputSection">
                 <!--send the data as a request using action destination and method-->
                 <form action="/" method="POST">
-                    <label for="place">Insert place:</label>
+                    <label for="place">Location:</label>
                     <input type="search" name="place" id="userInput_loc" required autofocus></input>
                 </form>
             </section>
 
-            <section class="apiDataReceived">
-                <h2>API Data</h2>
-                <ul>
-                    <% for (let key in data) { %>
-                        <% if (key==='data' ) { %>
+            <section>
+                <% if (typeof data !=='undefined' && data.length> 0) { %>
+                    <h2>Data:</h2>
+                    <ul>
+                        <% Object.entries(data[0].Risk).forEach(function([pollen, risk]) { %>
                             <li>
-                                <%= key %>:
+                                <strong>Pollen:</strong>
+                                <%= pollen %>
+                                    <br>
+                                    <strong>Risk:</strong>
+                                    <%= risk %>
                             </li>
-                            <ul>
-                                <% data[key].forEach(item=> { %>
-                                    <li>
-                                        <%= JSON.stringify(item) %>
-                                    </li>
-                                    <% }) %>
-                            </ul>
-                            <% } else { %>
-                                <li>
-                                    <%= key %>: <%= data[key] %>
-                                </li>
-                                <% } %>
-                                    <% } %>
-                </ul>
+                            <% }) %>
+                    </ul>
+                    <% } %>
             </section>
-
-
             <!--including the partials in the file - templating footer-->
             <%- include("../partials/footer.ejs")%>
     </body>

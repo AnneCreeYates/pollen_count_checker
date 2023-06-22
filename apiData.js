@@ -7,8 +7,6 @@ import("node-fetch").then(module => {
 
 const apiKey = process.env.API_KEY;
 
-//function receives the data from the user sent by the html form input on the browser side
-
 //function sends the request to the website using it's api and key with the purpose of retrieving the pollen data
 async function getData(place) {
   const url = `https://api.ambeedata.com/latest/pollen/by-place?place=${encodeURIComponent(
@@ -25,10 +23,12 @@ async function getData(place) {
     fetch(url, options)
       .then((response) => response.json())
       .then((data) => {
+        // console.log(data[0])
         resolve(data);
         // console.dir(data, { depth: null });
       })
       .catch((error) => {
+        console.error(error);
         reject(error);
       });
   });
