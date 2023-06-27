@@ -23,9 +23,7 @@ async function getData(place) {
     fetch(url, options)
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data[0])
         resolve(data);
-        // console.dir(data, { depth: null });
       })
       .catch((error) => {
         console.error(error);

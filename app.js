@@ -34,7 +34,6 @@ app.post("/", (req,res) => {
       console.log(error);
       res.status(500).send("An error occured");
     })
-    
 })
 
 app.get("/about", (req, res) => {
